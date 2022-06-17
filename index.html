@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css" />
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>
+            Weather Dasboard
+        </h1>
+    </header>
+    <main class="row" id="main-container">
+        <div class="col-3" id="form-container">
+            <h2>Search for a City:</h2>
+            <form id="city-form">
+                <label class="form-label" for="city">City</label>
+                <input name="city" id="city" type="text" autofocus="true" class="form-input" />
+                <button type="submit" class="btn">Get Weather</button>
+            </form>
+        </div>
+        <div class="col-9">
+            <div class="row" id="weather-container">
+                <div class="col-12" id="current-container">
+                    <h2 id="current-city-date">City + Date</h2>
+                    <p id="current-temp">Temp:</p>
+                    <p id="current-wind">Wind:</p>
+                    <p id="current-humidity">Humidity:</p>
+                    <p id="current-uv">UV Index:</p>
+                </div>
+                <div class="col-12" id="forecast-container">
+                    <div class="row" id="forecast-row">
+                        <div class="col" id="forecast-one">
+                            <h3 id="one-city-date">City + Date</h3>
+                            <p id="one-temp">Temp:</p>
+                            <p id="one-wind">Wind:</p>
+                            <p id="one-humidity">Humidity:</p>
+                        </div>
+                        <div class="col" id="forecast-two">
+                            <h3 id="two-city-date">City + Date</h3>
+                            <p id="two-temp">Temp:</p>
+                            <p id="two-wind">Wind:</p>
+                            <p id="two-humidity">Humidity:</p>
+                        </div>
+                        <div class="col" id="forecast-three">
+                            <h3 id="three-city-date">City + Date</h3>
+                            <p id="three-temp">Temp:</p>
+                            <p id="three-wind">Wind:</p>
+                            <p id="three-humidity">Humidity:</p>
+                        </div>
+                        <div class="col" id="forecast-four">
+                            <h3 id="four-city-date">City + Date</h3>
+                            <p id="four-temp">Temp:</p>
+                            <p id="four-wind">Wind:</p>
+                            <p id="four-humidity">Humidity:</p>
+                        </div>
+                        <div class="col" id="forecast-five">
+                            <h3 id="five-city-date">City + Date</h3>
+                            <p id="five-temp">Temp:</p>
+                            <p id="five-wind">Wind:</p>
+                            <p id="five-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    <script src="./script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+</body>
+</html>
