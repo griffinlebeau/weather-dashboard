@@ -3,6 +3,20 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
 const cityInputEl = document.getElementById('city')
 
+function pastSearches() {
+    var citiesArr = JSON.parse(localStorage.getItem("cities"));
+    if (citiesArr){
+        for(i = 0; i < citiesArr.length; i++){
+            var list = document.createElement('li');
+            list.textContent = citiesArr[i];
+            list.addEventListener('click', function(){
+                cityInputEl.value = citiesArr[i];
+            });
+            searchHistory.appendChild(list);
+        }
+    }
+}
+
 saveSearch = city => {
     var searchEl = document.createElement('li');
     searchEl.textContent = city;
@@ -10,6 +24,11 @@ saveSearch = city => {
         cityInputEl.value = city
     });
     var citiesArr = JSON.parse(localStorage.getItem("cities"));
+    if (!citiesArr){
+        citiesArr = []
+        citiesArr.push(city);
+        localStorage.setItem("cities", JSON.stringify(cities));
+    }
     citiesArr.push(city);
     localStorage.setItem("cities", JSON.stringify(cities));
     searchHistory.appendChild(searchEl);
