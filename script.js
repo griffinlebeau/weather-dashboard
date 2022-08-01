@@ -43,7 +43,7 @@ function currentWeather(current, city){
     wind.textContent = "Wind: " + current.wind_speed + "mph";
     currentContainer.appendChild(wind);
     var icon = document.createElement('img');
-    icon.setAttribute("src", "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png")
+    icon.setAttribute("src", "https://openweathermap.org/img/wn/" + current.weather[0].icon + ".png")
     currentContainer.appendChild(icon);
     var uvi = document.createElement('p');
     uvi.textContent = "UV index: " + current.uvi;
@@ -104,7 +104,7 @@ function getCityWeather(data, city){
 
 getCityCoords = city => {
     console.log(city);
-    var apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
+    var apiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
     console.log(apiUrl);
     fetch(apiUrl).then(function(response){
             response.json().then(function(data){
