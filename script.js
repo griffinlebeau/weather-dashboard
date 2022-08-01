@@ -3,7 +3,7 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
 const cityInputEl = document.getElementById('city');
 const searchBtn = document.getElementById('search-btn');
-const apiKey = "831b0b67d8d15789fe6bb9be743cf93a";
+const apiKey = "";
 const userFormEl = document.getElementById('city-form');
 
 function unixCon(time){
@@ -31,7 +31,7 @@ function pastSearches() {
 
 function currentWeather(current, city){
     var nameDate = document.createElement('h3');
-    nameDate.textContent = city + "" + unixCon(current.dt);
+    nameDate.textContent = city + " " + unixCon(current.dt);
     currentContainer.appendChild(nameDate)
     var temp = document.createElement('p');
     temp.textContent = "Temp: " + current.temp + "F";
@@ -42,8 +42,8 @@ function currentWeather(current, city){
     var wind = document.createElement('p');
     wind.textContent = "Wind: " + current.wind_speed + "mph";
     currentContainer.appendChild(wind);
-    var icon = document.createElement('p');
-    icon.textContent = current.weather.icon;
+    var icon = document.createElement('img');
+    icon.setAttribute("src", "http://openweathermap.org/img/wn/" + current.weather[0].icon + ".png")
     currentContainer.appendChild(icon);
     var uvi = document.createElement('p');
     uvi.textContent = "UV index: " + current.uvi;
@@ -65,10 +65,11 @@ function futureWeather(days){
         var wind = document.createElement('p');
         wind.textContent = "Wind: " + days[i].wind_speed + "mph";
         dayDiv.appendChild(wind);
-        var icon = document.createElement('p');
-        icon.textContent = days[i].weather[0].icon;
+        var icon = document.createElement('img');
+        icon.setAttribute("src", "http://openweathermap.org/img/wn/" + days[i].weather[0].icon + ".png")
         dayDiv.appendChild(icon);
-        currentContainer.appendChild(dayDiv);
+        dayDiv.classList = "m-3"
+        forecastContainer.appendChild(dayDiv);
     }
 };
 
