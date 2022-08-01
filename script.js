@@ -138,10 +138,20 @@ function loadSearch(citiesArr){
 
 function formSubmitHandler(event){
     event.preventDefault();
+    clearWeather();
     var city = cityInputEl.value.trim();
     console.log(city);
     getCityCoords(city);
     saveSearch(city)
+}
+
+function clearWeather(){
+    while(currentContainer.hasChildNodes()){
+        currentContainer.removeChild(currentContainer.firstChild);
+    };
+    while(forecastContainer.hasChildNodes()){
+        forecastContainer.removeChild(forecastContainer.firstChild);
+    };
 }
 
 userFormEl.addEventListener("submit", formSubmitHandler);
