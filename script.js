@@ -3,7 +3,7 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
 const cityInputEl = document.getElementById('city');
 const searchBtn = document.getElementById('search-btn');
-const apiKey = "831b0b67d8d15789fe6bb9be743cf93a";
+const apiKey = "";
 const userFormEl = document.getElementById('city-form');
 
 function unixCon(time){
@@ -47,6 +47,13 @@ function currentWeather(current, city){
     currentContainer.appendChild(icon);
     var uvi = document.createElement('p');
     uvi.textContent = "UV index: " + current.uvi;
+    if(current.uvi < 3){
+        uvi.classList = "border border-success ";
+    } else if(current.uvi < 5){
+        uvi.classList = "border border-warning";
+    } else {
+        uvi.classList = "border border-danger";
+    }
     currentContainer.appendChild(uvi);
 };
 
