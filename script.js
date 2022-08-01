@@ -3,7 +3,7 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
 const cityInputEl = document.getElementById('city');
 const searchBtn = document.getElementById('search-btn');
-const apiKey = "";
+const apiKey = "831b0b67d8d15789fe6bb9be743cf93a";
 const userFormEl = document.getElementById('city-form');
 
 function unixCon(time){
@@ -73,7 +73,7 @@ function futureWeather(days){
         wind.textContent = "Wind: " + days[i].wind_speed + "mph";
         dayDiv.appendChild(wind);
         var icon = document.createElement('img');
-        icon.setAttribute("src", "http://openweathermap.org/img/wn/" + days[i].weather[0].icon + ".png")
+        icon.setAttribute("src", "https://openweathermap.org/img/wn/" + days[i].weather[0].icon + ".png")
         dayDiv.appendChild(icon);
         dayDiv.classList = "m-3"
         forecastContainer.appendChild(dayDiv);
