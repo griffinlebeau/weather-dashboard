@@ -1,8 +1,19 @@
 const currentContainer = document.getElementById('current-container');
 const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
-const cityInputEl = document.getElementById('city')
-const apiKey = 
+const cityInputEl = document.getElementById('city');
+const searchBtn = document.getElementById('search-btn');
+const apiKey = "831b0b67d8d15789fe6bb9be743cf93a";
+const userFormEl = document.getElementById('city-form');
+
+function unixCon(time){
+    let unix = time;
+    var date = new Date(unix * 1000);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    return(month + "/" + day + "/" + year)
+}
 
 function pastSearches() {
     var citiesArr = JSON.parse(localStorage.getItem("cities"));
@@ -19,9 +30,9 @@ function pastSearches() {
 }
 
 function currentWeather(current, city){
-    var name = document.createElement('h3');
-    name.textContent = city;
-    currentContainer.appendChild(name)
+    var nameDate = document.createElement('h3');
+    nameDate.textContent = city + "" + unixCon(current.dt);
+    currentContainer.appendChild(nameDate)
     var temp = document.createElement('p');
     temp.textContent = "Temp: " + current.temp + "F";
     currentContainer.appendChild(temp);
@@ -40,8 +51,11 @@ function currentWeather(current, city){
 };
 
 function futureWeather(days){
-    for(i = 0; i < days.length; i++){
+    for(i = 1; i < days.length; i++){
         var dayDiv = document.createElement('div');
+        var date = document.createElement('h4');
+        date.textContent = unixCon(days[i].dt);
+        dayDiv.appendChild(date);
         var temp = document.createElement('p');
         temp.textContent = "Temp: " + days[i].temp.day + "F";
         dayDiv.appendChild(temp);
@@ -55,7 +69,6 @@ function futureWeather(days){
         icon.textContent = days[i].weather[0].icon;
         dayDiv.appendChild(icon);
         currentContainer.appendChild(dayDiv);
-
     }
 };
 
@@ -67,7 +80,7 @@ function displayWeather(data, city){
 }
 
 function getCityWeather(data, city){
-    var apiUrl = "https://api.openweathermap.org/data/3.0/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly, alerts&units=imperial&appid=" + apiKey;
+    var apiUrl = "https://api.openweathermap.org/data/3.0/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&units=imperial" + "&appid=" + apiKey;
     fetch(apiUrl)
         .then(function(response){
             if(response.ok){
@@ -82,20 +95,13 @@ function getCityWeather(data, city){
 }
 
 getCityCoords = city => {
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
-    fetch(apiUrl)
-        .then(function(response){
-            if(response.ok){
-                response.json()
-                    .then(function(data){
-                        getCityWeather(data, city)}
-                    )
-            } else {
-                alert('Error')
-            }
-        })
-        .catch(function(error){
-            alert('Unable to connect')
+    console.log(city);
+    var apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
+    console.log(apiUrl);
+    fetch(apiUrl).then(function(response){
+            response.json().then(function(data){
+                getCityWeather(data, city);
+            })
         })
             
 }
@@ -120,9 +126,12 @@ saveSearch = city => {
 
 
 
-formSubmitHandler = event => {
+function formSubmitHandler(event){
     event.preventDefault();
     var city = cityInputEl.value.trim();
+    console.log(city);
     getCityCoords(city);
-    saveSearch(city)
+    //saveSearch(city)
 }
+
+userFormEl.addEventListener("submit", formSubmitHandler)
