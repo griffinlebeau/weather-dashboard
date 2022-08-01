@@ -3,7 +3,7 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchHistory = document.getElementById('search-history');
 const cityInputEl = document.getElementById('city');
 const searchBtn = document.getElementById('search-btn');
-const apiKey = "";
+const apiKey = "831b0b67d8d15789fe6bb9be743cf93a";
 const userFormEl = document.getElementById('city-form');
 
 function unixCon(time){
@@ -113,26 +113,37 @@ saveSearch = city => {
     searchEl.addEventListener('click', function(){
         cityInputEl.value = city
     });
-    var citiesArr = JSON.parse(localStorage.getItem("cities"));
+    citiesArr.push(city);
+    localStorage.setItem("cities", JSON.stringify(citiesArr));
+    searchHistory.appendChild(searchEl);
+    }
+
+var citiesArr = JSON.parse(localStorage.getItem("cities"));
+
+
+function loadSearch(citiesArr){
     if (!citiesArr){
         citiesArr = []
-        citiesArr.push(city);
-        localStorage.setItem("cities", JSON.stringify(cities));
+        localStorage.setItem("cities", JSON.stringify(citiesArr));
+    } else { 
+        for(i = 0; i < citiesArr.length; i++){
+            var searchEl = document.createElement('li');
+            searchEl.textContent = citiesArr[i];
+            searchEl.addEventListener('click', function(){
+                cityInputEl.value = searchEl.textContent
+            })
+            searchHistory.appendChild(searchEl);
     }
-    citiesArr.push(city);
-    localStorage.setItem("cities", JSON.stringify(cities));
-    searchHistory.appendChild(searchEl);
-}
-
-
-
+}}
 
 function formSubmitHandler(event){
     event.preventDefault();
     var city = cityInputEl.value.trim();
     console.log(city);
     getCityCoords(city);
-    //saveSearch(city)
+    saveSearch(city)
 }
 
-userFormEl.addEventListener("submit", formSubmitHandler)
+userFormEl.addEventListener("submit", formSubmitHandler);
+
+loadSearch(citiesArr)
